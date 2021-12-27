@@ -5,26 +5,21 @@ pragma solidity ^0.8.0;
 import "./lib/BEP20Capped.sol";
 import "./lib/BEP20Mintable.sol";
 
-import "../../service/ServicePayer.sol";
-
 /**
  * @title MintableBEP20
  * @dev Implementation of the MintableBEP20
  */
-contract MintableBEP20 is BEP20Capped, BEP20Mintable, ServicePayer {
+contract MintableBEP20 is BEP20Capped, BEP20Mintable {
 
     constructor (
         string memory name,
         string memory symbol,
         uint8 decimals,
         uint256 cap,
-        uint256 initialBalance,
-        address payable feeReceiver
+        uint256 initialBalance
     )
         BEP20(name, symbol)
         BEP20Capped(cap)
-        ServicePayer(feeReceiver, "MintableBEP20")
-        payable
     {
         _setupDecimals(decimals);
         _mint(_msgSender(), initialBalance);

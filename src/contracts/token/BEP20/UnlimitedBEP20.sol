@@ -5,24 +5,19 @@ pragma solidity ^0.8.0;
 import "./lib/BEP20Mintable.sol";
 import "./lib/BEP20Burnable.sol";
 
-import "../../service/ServicePayer.sol";
-
 /**
  * @title UnlimitedBEP20
  * @dev Implementation of the UnlimitedBEP20
  */
-contract UnlimitedBEP20 is BEP20Mintable, BEP20Burnable, ServicePayer {
+contract UnlimitedBEP20 is BEP20Mintable, BEP20Burnable {
 
     constructor (
         string memory name,
         string memory symbol,
         uint8 decimals,
-        uint256 initialBalance,
-        address payable feeReceiver
+        uint256 initialBalance
     )
       BEP20(name, symbol)
-      ServicePayer(feeReceiver, "UnlimitedBEP20")
-      payable
     {
         _setupDecimals(decimals);
         _mint(_msgSender(), initialBalance);
