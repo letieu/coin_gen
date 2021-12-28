@@ -9,6 +9,7 @@ const { getAbi } = useAbis()
 const options = ['Standard', 'Mintable', 'Mintable unlimited', 'Burnable']
 const type = ref(options[0])
 const error = ref('')
+const notification = ref('')
 
 const form = reactive({
   name: '',
@@ -37,6 +38,7 @@ function validate(fileds: string[]) {
 }
 
 function submit() {
+  notification.value = ''
   const decimals = Web3.utils.toBN(form.decimals)
   const cap = Web3.utils.toBN(form.cap).mul(Web3.utils.toBN(Math.pow(10, +form.decimals)))
   const initialBalance = Web3.utils.toBN(form.initialBalance).mul(Web3.utils.toBN(Math.pow(10, +form.decimals)))
@@ -82,6 +84,7 @@ async function deploy(type: string, params: string[]) {
       .on('receipt', (receipt: any) => {
         const tokenAddress = receipt.contractAddress
         console.log(tokenAddress) // eslint-disable-line no-console
+        notification.value = `Token address: ${tokenAddress}`
       })
   }
   catch (e: any) {
@@ -149,6 +152,7 @@ async function deploy(type: string, params: string[]) {
           <div class="column right">
             <h1 class="title is-4">Params</h1>
             <div class="notification is-danger" v-if="error">{{ error }}</div>
+            <div class="notification is-success" v-if="notification">{{ notification }}</div>
 
             <form>
               <div class="field">
