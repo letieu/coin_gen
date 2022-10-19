@@ -129,9 +129,7 @@ async function deploy(type: string, params: string[]) {
               <div class="control">
                 <div class="select">
                   <select>
-                    <option>BEP20 (BNB)</option>
                     <option>ERC20 (ETH)</option>
-                    <option>MRC20 (Polygon)</option>
                   </select>
                 </div>
               </div>
